@@ -1,7 +1,15 @@
-const Customer = require("../models/customer.model.js");
+/**
+ * 
+ * APP owns ROUTER
+ * ROUTER owns CONTROLLER
+ * CONTROLLER owns MODEL
+ * 
+ */
+
+const Customer = require("../models/customer.model");
 
 // Create and Save a new Customer
-exports.create = (req, res) => {
+module.exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({
@@ -28,7 +36,7 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Customers from the database.
-exports.findAll = (req, res) => {
+module.exports.findAll = (req, res) => {
   Customer.getAll((err, data) => {
     if (err)
       res.status(500).send({
@@ -40,7 +48,7 @@ exports.findAll = (req, res) => {
 };
 
 // Find a single Customer with a customerId
-exports.findOne = (req, res) => {
+module.exports.findOne = (req, res) => {
   Customer.findById(req.params.customerId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
@@ -57,7 +65,7 @@ exports.findOne = (req, res) => {
 };
 
 // Update a Customer identified by the customerId in the request
-exports.update = (req, res) => {
+module.exports.update = (req, res) => {
   // Validate Request
   if (!req.body) {
     res.status(400).send({
@@ -87,7 +95,7 @@ exports.update = (req, res) => {
 };
 
 // Delete a Customer with the specified customerId in the request
-exports.delete = (req, res) => {
+module.exports.delete = (req, res) => {
   Customer.remove(req.params.customerId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
@@ -104,7 +112,7 @@ exports.delete = (req, res) => {
 };
 
 // Delete all Customers from the database.
-exports.deleteAll = (req, res) => {
+module.exports.deleteAll = (req, res) => {
   Customer.removeAll((err, data) => {
     if (err)
       res.status(500).send({
