@@ -87,7 +87,14 @@ exports.search = (req, res) => {
   
   console.log("Search for: " + q)
 
-  const condition = q ? { name: { [Op.like]: `%${q}%` } } : null
+  // WHERE name LIKE `q`.
+  // const condition = q ? { name: { [Op.like]: `%${q}%` } } : null
+
+  const like1 = { name: { [Op.like]: `%${q}%` } }
+  const like2 = { email: { [Op.like]: `%${q}%` } }
+
+  // WHERE name LIKE q OR name LIKE q
+  const condition = q ? { [Op.or]: [like1, like2] } : null
 
   Customer.findAll({ where: condition })
     .then(data => {
