@@ -1,21 +1,28 @@
 module.exports = app => {
-  const customers = require("../controllers/customer.controller.js");
+  const customers = require("../controllers/customer.controller");
+
+  const router = require("express").Router();
 
   // Create a new Customer
-  app.post("/customers", customers.create);
+  router.post("/", customers.create);
 
   // Retrieve all Customers
-  app.get("/customers", customers.findAll);
+  router.get("/", customers.findAll);
+
+  // Search for a customer.
+  router.get("/search", customers.search)
 
   // Retrieve a single Customer with customerId
-  app.get("/customers/:customerId", customers.findOne);
+  router.get("/:customerId", customers.findOne);
 
   // Update a Customer with customerId
-  app.put("/customers/:customerId", customers.update);
+  router.put("/:customerId", customers.update);
 
   // Delete a Customer with customerId
-  app.delete("/customers/:customerId", customers.delete);
+  router.delete("/:customerId", customers.delete);
 
   // Create a new Customer
-  app.delete("/customers", customers.deleteAll);
+  router.delete("/", customers.deleteAll);
+
+  app.use("/api/customers", router)
 };
