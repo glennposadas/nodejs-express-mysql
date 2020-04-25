@@ -23,6 +23,16 @@ app.get("/", (req, res) => {
 
 require("./app/routes/customer.routes.js")(app)
 
+const db = require("./app/models/db")
+
+if (process.env.NODE_ENV === 'production') {
+  db.sequelize.sync()
+} else {
+  db.sequelize.sync({ force : true}).then(() => {
+    console.log("Drop and re-sync db.")
+  })
+}
+
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
