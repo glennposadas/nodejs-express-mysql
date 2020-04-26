@@ -2,7 +2,6 @@
  * 
  * APP owns ROUTER
  * ROUTER owns CONTROLLER
- * CONTROLLER owns MODEL
  * 
  */
 
