@@ -6,8 +6,14 @@ const morgan = require("morgan")
 const app = express()
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
 }
+
+// Disable the powered by header result.
+app.disable('x-powered-by');
 
 // cors
 app.use(cors(corsOptions))
